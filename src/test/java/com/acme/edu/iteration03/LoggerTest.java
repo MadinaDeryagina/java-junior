@@ -33,7 +33,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives array: {-1, 0, 1}\n"
+            "primitives array: {-1, 0, 1}\r\n"
         );
         //endregion
     }
@@ -46,11 +46,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives matrix: {\n" +
-                "{-1, 0, 1}\n" +
-                "{1, 2, 3}\n" +
-                "{-1, -2, -3}\n" +
-            "}\n"
+            "primitives matrix: {\r\n" +
+                "{-1, 0, 1}\r\n" +
+                "{1, 2, 3}\r\n" +
+                "{-1, -2, -3}\r\n" +
+            "}\r\n"
         );
         //endregion
     }
@@ -63,11 +63,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives multimatrix: {\n" +
-                "{\n" + "{\n" + "{\n" +
-                    "0\n" +
-                "}\n" + "}\n" + "}\n" +
-            "}\n"
+            "primitives multimatrix: {\r\n" +
+                "{\r\n" + "{\r\n" + "{\r\n" +
+                    "0\r\n" +
+                "}\r\n" + "}\r\n" + "}\r\n" +
+            "}\r\n"
         );
         //endregion
     }
@@ -79,7 +79,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str1\nstring 2\nstr 3");
+        assertSysoutContains("str1\r\nstring 2\r\nstr 3");
         //endregion
     }
 
