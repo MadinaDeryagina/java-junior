@@ -9,6 +9,8 @@ import org.junit.Test;
 import java.io.*;
 
 public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -33,7 +35,7 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 0\r\n");
+        assertSysoutEquals("primitive: 0" + LINE_SEPARATOR);
         //endregion
     }
 

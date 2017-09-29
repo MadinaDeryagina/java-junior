@@ -1,11 +1,13 @@
 package com.acme.edu;
 
 public class SumTypeLogger {
+    //region initialization prefixe's constants
     private final static String FOR_PRIMITIVE ="primitive: ";
     private final static String FOR_CHAR ="char: ";
     private final static String FOR_STRING ="string: ";
     private final static String FOR_OBJECT ="reference: ";
-    private static final String FOR_PRIMITIVE_ARRAYS = "primitive arrays: ";
+    private static final String FOR_PRIMITIVE_ARRAYS = "primitives array: ";
+    //endregion
 
     private static int modMaxSumInt = 0;
     private static int modMaxSumByte = 0;
@@ -13,6 +15,7 @@ public class SumTypeLogger {
     private static int numOfMaxOverflowsInSumInt =0;
     private static int countRepeatedStrings = 0;
     private static String previousString = null;
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     private static boolean isPreviousString = false;
     private static boolean isPreviousInt = false;
@@ -62,7 +65,7 @@ public class SumTypeLogger {
     }
 
     public  static void log(int... messages ){
-        print(FOR_PRIMITIVE_ARRAYS+ String.valueOf(messages));
+        print(FOR_PRIMITIVE_ARRAYS, messages);
     }
     public static void close(){
         dumpBytes();
@@ -72,6 +75,16 @@ public class SumTypeLogger {
 
     private static void print(String fullMessage){
         System.out.println(fullMessage);
+    }
+
+    private static void print( String prefix, int... array ){
+        System.out.print(FOR_PRIMITIVE_ARRAYS);
+        System.out.print("{");
+        for ( int i = 0; i < array.length-1 ; i++ ) {
+            System.out.print(array[i]+", ");
+        }
+        System.out.print( array[ array.length-1 ] +  "}"+LINE_SEPARATOR );
+
     }
 
     private static void dumpPreviuosCallsResults( String currentFunctionCall){
@@ -147,7 +160,7 @@ public class SumTypeLogger {
         return sumModMaxValue(prevSum, current, Integer.MAX_VALUE, Integer.MIN_VALUE);
     }
 
-    public static int sumModMaxValueByte(int prevSum,byte current) {
+    private static int sumModMaxValueByte(int prevSum,byte current) {
         return  sumModMaxValue( prevSum, current, Byte.MAX_VALUE, Byte.MIN_VALUE);
     }
 
