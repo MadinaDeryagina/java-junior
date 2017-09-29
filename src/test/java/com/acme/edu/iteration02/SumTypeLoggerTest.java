@@ -9,6 +9,8 @@ import org.junit.Test;
 import java.io.IOException;
 
 public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -23,7 +25,6 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
 
-
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
@@ -36,10 +37,10 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str 1\r\n");
-        assertSysoutContains("3\r\n");
-        assertSysoutContains( "str 2\r\n");
-        assertSysoutContains("0\r\n");
+        assertSysoutContains("str 1" + LINE_SEPARATOR);
+        assertSysoutContains("3" + LINE_SEPARATOR);
+        assertSysoutContains("str 2" + LINE_SEPARATOR);
+        assertSysoutContains("0" + LINE_SEPARATOR);
 
         //endregion
     }
@@ -48,21 +49,20 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
         SumTypeLogger.log("str 1");
-        SumTypeLogger.log((int)10);
-        SumTypeLogger.log((int)Integer.MAX_VALUE);
+        SumTypeLogger.log((int) 10);
+        SumTypeLogger.log((int) Integer.MAX_VALUE);
         SumTypeLogger.log("str 2");
         SumTypeLogger.log(0);
         SumTypeLogger.close();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1\r\n" +
-            "10\r\n" +
-            Integer.MAX_VALUE + "\r\n" +
-            "str 2\r\n" +
-            "0\r\n"
-        );
+        assertSysoutContains("str 1" + LINE_SEPARATOR );
+        assertSysoutContains("10" + LINE_SEPARATOR );
+        assertSysoutContains( Integer.MAX_VALUE + LINE_SEPARATOR );
+        assertSysoutContains("str 2" + LINE_SEPARATOR );
+        assertSysoutContains("0" + LINE_SEPARATOR);
+
         //endregion
     }
 
@@ -70,19 +70,19 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
         SumTypeLogger.log("str 1");
-        SumTypeLogger.log((byte)10);
-        SumTypeLogger.log((byte)Byte.MAX_VALUE);
+        SumTypeLogger.log((byte) 10);
+        SumTypeLogger.log((byte) Byte.MAX_VALUE);
         SumTypeLogger.log("str 2");
         SumTypeLogger.log(0);
         SumTypeLogger.close();
         //endregion
 
         //region then
-        assertSysoutContains("str 1\r\n");
-        assertSysoutContains("10\r\n" );
-        assertSysoutContains(Byte.MAX_VALUE + "\r\n");
-        assertSysoutContains("str 2\r\n");
-        assertSysoutContains("0\r\n");
+        assertSysoutContains("str 1" + LINE_SEPARATOR);
+        assertSysoutContains("10" + LINE_SEPARATOR);
+        assertSysoutContains(Byte.MAX_VALUE + LINE_SEPARATOR);
+        assertSysoutContains("str 2" + LINE_SEPARATOR);
+        assertSysoutContains("0" + LINE_SEPARATOR);
         //endregion
     }
 
@@ -101,11 +101,11 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str 1\r\n");
-        assertSysoutContains("str 2 (x2)\r\n");
-        assertSysoutContains("0\r\n");
-         assertSysoutContains( "str 2\r\n");
-         assertSysoutContains( "str 3 (x3)\r\n");
+        assertSysoutContains("str 1" + LINE_SEPARATOR);
+        assertSysoutContains("str 2 (x2)" + LINE_SEPARATOR);
+        assertSysoutContains("0" + LINE_SEPARATOR);
+        assertSysoutContains("str 2" + LINE_SEPARATOR);
+        assertSysoutContains("str 3 (x3)" + LINE_SEPARATOR);
         //endregion
     }
 }

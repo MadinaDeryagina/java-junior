@@ -5,6 +5,7 @@ public class SumTypeLogger {
     private final static String FOR_CHAR ="char: ";
     private final static String FOR_STRING ="string: ";
     private final static String FOR_OBJECT ="reference: ";
+    private static final String FOR_PRIMITIVE_ARRAYS = "primitive arrays: ";
 
     private static int modMaxSumInt = 0;
     private static int modMaxSumByte = 0;
@@ -58,6 +59,10 @@ public class SumTypeLogger {
     public static void log(Object message){
 
         print(FOR_OBJECT + message.toString());
+    }
+
+    public  static void log(int... messages ){
+        print(FOR_PRIMITIVE_ARRAYS+ String.valueOf(messages));
     }
     public static void close(){
         dumpBytes();
