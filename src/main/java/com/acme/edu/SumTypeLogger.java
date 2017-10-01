@@ -9,10 +9,8 @@ public class SumTypeLogger {
     private static final String FOR_PRIMITIVE_ARRAYS = "primitives array: ";
     //endregion
 
-    private static int modMaxSumInt = 0;
-    private static int modMaxSumByte = 0;
-    private static int numOfMaxOverflowsInSumByte =0;
-    private static int numOfMaxOverflowsInSumInt =0;
+    private static long sumInt = 0;
+    private static long sumByte = 0;
     private static int countRepeatedStrings = 0;
     private static String previousString = null;
     private static final String LINE_SEPARATOR = System.lineSeparator();
@@ -21,32 +19,27 @@ public class SumTypeLogger {
     private static boolean isPreviousInt = false;
     private static boolean isPreviousByte = false;
 
-    private static int maxValueCounter = 0;
-    private static int minValueCounter = 0;
-
     public static void log(int message) {
-        dumpPreviuosCallsResults("INT");
-        modMaxSumInt = sumModMaxValueInt( modMaxSumInt, message);
-        numOfMaxOverflowsInSumInt += maxValueCounter;
+        dumpPreviousCallsResults("INT");
+        sumInt += message;
         isPreviousInt = true;
     }
 
     public static void log(byte message) {
-        dumpPreviuosCallsResults("BYTE");
-        modMaxSumByte = sumModMaxValueByte(modMaxSumByte,message);
-        numOfMaxOverflowsInSumByte += maxValueCounter;
+        dumpPreviousCallsResults("BYTE");
+        sumByte += message;
         isPreviousByte = true;
     }
 
     public static void log(boolean message){
-        dumpPreviuosCallsResults("BOOL");
+        dumpPreviousCallsResults("BOOL");
         print(FOR_PRIMITIVE + message);
 
     }
     public static void log(String message){
         if( message == null) throw new NullPointerException();
         if( previousString == null) {
-            dumpPreviuosCallsResults("STR");
+            dumpPreviousCallsResults("STR");
         }
         else if( ! previousString.equals(message) ){
             dumpString();
@@ -56,7 +49,7 @@ public class SumTypeLogger {
         previousString = message;
     }
     public static void log(char message){
-        dumpPreviuosCallsResults("CHAR");
+        dumpPreviousCallsResults("CHAR");
         print(FOR_CHAR + message);
     }
     public static void log(Object message){
@@ -87,7 +80,7 @@ public class SumTypeLogger {
 
     }
 
-    private static void dumpPreviuosCallsResults( String currentFunctionCall){
+    private static void dumpPreviousCallsResults(String currentFunctionCall){
 
         if( currentFunctionCall.equals("INT") ) {
             dumpString();
@@ -108,20 +101,13 @@ public class SumTypeLogger {
             dumpBytes();
         }
     }
-
-    private static void dumpBytes() {
-        if( isPreviousByte == false){
+    private static void dumpBytes(){
+        if( isPreviousByte == false) {
             return;
         }
-        print(FOR_PRIMITIVE + String.valueOf(modMaxSumByte));
-        while ( numOfMaxOverflowsInSumByte >0){
-                print( FOR_PRIMITIVE + String.valueOf(Byte.MAX_VALUE));
-                numOfMaxOverflowsInSumByte--;
-        }
-        numOfMaxOverflowsInSumByte = 0;
-        modMaxSumByte = 0;
-        maxValueCounter = 0;
-        isPreviousByte=false;
+        dumpByteSumWithOverflow(sumByte);
+        sumByte=0;
+        isPreviousByte = true;
     }
 
     private static void dumpInt() {
@@ -129,18 +115,9 @@ public class SumTypeLogger {
             return;
         }
 
-        print( FOR_PRIMITIVE + String.valueOf(modMaxSumInt));
-
-        while ( numOfMaxOverflowsInSumInt > 0 ){
-            print( FOR_PRIMITIVE + String.valueOf(Integer.MAX_VALUE));
-            numOfMaxOverflowsInSumInt--;
-        }
-        modMaxSumInt = 0;
-        isPreviousInt = false;
-        numOfMaxOverflowsInSumInt = 0;
-        maxValueCounter=0;
-
-
+        dumpIntSumWithOverflow(sumInt);
+        sumInt=0;
+        isPreviousInt=true;
     }
     private static void dumpString() {
         if( isPreviousString == false){
@@ -156,27 +133,31 @@ public class SumTypeLogger {
         countRepeatedStrings=0;
     }
 
-    private static int sumModMaxValueInt(int prevSum,int current) {
-        return sumModMaxValue(prevSum, current, Integer.MAX_VALUE, Integer.MIN_VALUE);
+    private static void dumpByteSumWithOverflow(long sum){
+        if( sum >= 0 ){
+            dumpSumWithOverflow(sum,Byte.MAX_VALUE);
+        }else {
+            dumpSumWithOverflow(sum, Byte.MIN_VALUE);
+        }
+    }
+    private static void dumpIntSumWithOverflow(long sum){
+        if( sum >= 0){
+            dumpSumWithOverflow( sum, Integer.MAX_VALUE);
+        }else{
+            dumpSumWithOverflow( sum, Integer.MIN_VALUE);
+        }
+
+    }
+    private static void dumpSumWithOverflow(long sum, long border) {
+        if( Math.abs(sum) <= Math.abs(border)){
+            print(FOR_PRIMITIVE+String.valueOf(sum));
+        }else {
+            print(FOR_PRIMITIVE+String.valueOf(border));
+            dumpSumWithOverflow(sum-border,border);
+        }
     }
 
-    private static int sumModMaxValueByte(int prevSum,byte current) {
-        return  sumModMaxValue( prevSum, current, Byte.MAX_VALUE, Byte.MIN_VALUE);
-    }
 
-    private static int sumModMaxValue(int prevSum, int current, int max_border, int min_border){
-
-        return sumWithMaxOverflow( prevSum, current, max_border);
-
-    }
-
-    private static int sumWithMaxOverflow(int prevSum, int current, int max_border){
-            while( current >= max_border - prevSum) {
-                maxValueCounter++;
-                current = current - max_border;
-            }
-            return prevSum + current;
-    }
 
 
 
