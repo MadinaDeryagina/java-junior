@@ -28,6 +28,7 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersArray() throws IOException {
         //region when
         SumTypeLogger.log(new int[] {-1, 0, 1});
+        SumTypeLogger.close();
         //endregion
 
         //region then

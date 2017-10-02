@@ -64,6 +64,7 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         SumTypeLogger.log('a');
         SumTypeLogger.log('b');
+        SumTypeLogger.close();
         //endregion
 
         //region then
@@ -93,6 +94,7 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         SumTypeLogger.log(true);
         SumTypeLogger.log(false);
+        SumTypeLogger.close();
         //endregion
 
         //region then
@@ -105,6 +107,7 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogReference() throws IOException {
         //region when
         SumTypeLogger.log(new Object());
+        SumTypeLogger.close();
         //endregion
 
         //region then
