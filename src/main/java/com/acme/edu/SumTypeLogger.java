@@ -1,5 +1,9 @@
 package com.acme.edu;
 
+import com.acme.edu.Message.*;
+import com.acme.edu.Saver.ConsoleSaver;
+import com.acme.edu.Saver.Saver;
+
 public class SumTypeLogger {
 
     private static Saver saver = new ConsoleSaver();

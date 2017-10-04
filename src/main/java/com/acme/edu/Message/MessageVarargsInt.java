@@ -1,4 +1,6 @@
-package com.acme.edu;
+package com.acme.edu.Message;
+
+import com.acme.edu.Saver.Saver;
 
 public class MessageVarargsInt extends Message {
     private static final  String PREFIX="primitives array:";
@@ -10,7 +12,7 @@ public class MessageVarargsInt extends Message {
     }
 
     @Override
-    protected String formateForSave() {
+    public String formateForSave() {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX+" {");
         for (int i = 0; i < messages.length - 1 ; i++) {
@@ -22,12 +24,18 @@ public class MessageVarargsInt extends Message {
     }
 
     @Override
-    boolean equalsTypes(Message other) {
+    protected void processPrevAndCurrent(Message prevMessage, Saver saver) {
+        saver.save(prevMessage.formateForSave());
+    }
+
+
+    @Override
+    public boolean equalsTypes(Message other) {
         return other instanceof MessageVarargsInt;
     }
 
     @Override
-    void reset() {
+    public void reset() {
 
     }
 }

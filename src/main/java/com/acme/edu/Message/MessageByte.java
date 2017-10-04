@@ -1,10 +1,10 @@
-package com.acme.edu;
+package com.acme.edu.Message;
 
 public class MessageByte extends CountingPrimitiveMessage {
     public MessageByte( int message){
         super(message);
     }
-    protected String formateForSave(){
+    public String formateForSave(){
         if( this.getSum() >= 0){
             return PREFIX + dumpSumWithOverflow( this.getSum(), Byte.MAX_VALUE) + LINE_SEPARATOR;
         }else{
@@ -12,8 +12,10 @@ public class MessageByte extends CountingPrimitiveMessage {
         }
     }
 
+
+
     @Override
-    boolean equalsTypes(Message other) {
+    public boolean equalsTypes(Message other) {
         return other instanceof MessageByte;
     }
 }

@@ -1,50 +1,28 @@
 package com.acme.edu;
 
+import com.acme.edu.Message.Message;
+import com.acme.edu.Saver.Saver;
 
-public class LoggerController {
+class LoggerController {
 
     private Message prevMessage;
     private Saver saver;
 
-    public LoggerController(Saver saver){
+    LoggerController(Saver saver){
         this.saver = saver;
         prevMessage = null;
     }
 
-    public void setCurrentMessage(Message current) {
-        if( current == null) throw new NullPointerException("Invalid message");
-        if( prevMessage != null) {
-            if ( !prevMessage.equalsTypes(current)) {
-
-                saver.save( prevMessage.formateForSave() );
-
-
-            } else {
-                if (prevMessage instanceof CountingPrimitiveMessage ) {
-
-                    long prevSum = ((CountingPrimitiveMessage) prevMessage).getSum();
-                    ((CountingPrimitiveMessage) current).addPrevSum(prevSum);
-
-                } else if ( prevMessage instanceof MessageString ) {
-
-                    if( ! ((MessageString) prevMessage).equalsString((MessageString) current) ){
-                        saver.save( prevMessage.formateForSave() );
-                    }else{
-                        int prevCounter = ((MessageString) prevMessage).getCounter();
-                        ((MessageString)current).setCountRepeated( prevCounter );
-                    }
-
-                } else {
-                    saver.save( prevMessage.formateForSave() );
-
-                }
-
-            }
+    void setCurrentMessage(Message current) {
+        if( prevMessage == null){
+            prevMessage = current;
+            return;
         }
 
+        current.processPreviousMessage(prevMessage, saver);
          prevMessage = current;
     }
-    public void close(){
+    void close(){
         saver.save(prevMessage.formateForSave());
     }
 }

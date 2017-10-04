@@ -1,4 +1,6 @@
-package com.acme.edu;
+package com.acme.edu.Message;
+
+import com.acme.edu.Saver.Saver;
 
 public class MessageChar extends Message {
     private static final String PREFIX = "char: ";
@@ -9,17 +11,22 @@ public class MessageChar extends Message {
     }
 
     @Override
-    protected String formateForSave() {
+    public String formateForSave() {
         return PREFIX + message + LINE_SEPARATOR;
     }
 
     @Override
-    boolean equalsTypes(Message other) {
+    protected void processPrevAndCurrent(Message prevMessage, Saver saver) {
+
+    }
+
+    @Override
+    public boolean equalsTypes(Message other) {
         return other instanceof MessageChar;
     }
 
     @Override
-    void reset() {
+    public void reset() {
 
     }
 }

@@ -1,4 +1,6 @@
-package com.acme.edu;
+package com.acme.edu.Message;
+
+import com.acme.edu.Saver.Saver;
 
 public class MessageString extends Message {
     private final static String prefix ="string: ";
@@ -14,15 +16,15 @@ public class MessageString extends Message {
 
         return message;
     }
-    public int getCounter(){
+    private int getCounter(){
 
         return countRepeated;
     }
-    public void setCountRepeated(int prevCounter){
+    private void setCountRepeated(int prevCounter){
         countRepeated = prevCounter + 1;
     }
     @Override
-    protected String formateForSave() {
+    public String formateForSave() {
         if( countRepeated == 1){
             return prefix + message + LINE_SEPARATOR;
         }
@@ -30,16 +32,26 @@ public class MessageString extends Message {
     }
 
     @Override
-    boolean equalsTypes(Message other) {
+    protected void processPrevAndCurrent(Message prevMessage, Saver saver) {
+        if( !(this.equalsString((MessageString) prevMessage ))){
+            saver.save( prevMessage.formateForSave() );
+        }else{
+            int prevCounter = ((MessageString) prevMessage).getCounter();
+            this.setCountRepeated( prevCounter );
+        }
+    }
+
+    @Override
+    public boolean equalsTypes(Message other) {
         return other instanceof  MessageString;
     }
 
     @Override
-    void reset() {
+    public void reset() {
         countRepeated=1;
     }
 
-    boolean equalsString(MessageString other){
+    private boolean equalsString(MessageString other){
         return this.getMessage().equals(other.getMessage());
     }
 }

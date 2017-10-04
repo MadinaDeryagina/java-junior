@@ -1,4 +1,4 @@
-package com.acme.edu;
+package com.acme.edu.Message;
 
 public class MessageInt extends CountingPrimitiveMessage {
 
@@ -8,13 +8,15 @@ public class MessageInt extends CountingPrimitiveMessage {
 
     }
 
-    protected String formateForSave(){
+    public String formateForSave(){
         if( this.getSum() >= 0){
             return super.PREFIX +dumpSumWithOverflow( this.getSum(), Integer.MAX_VALUE);
         }else{
            return  super.PREFIX +dumpSumWithOverflow( this.getSum(), Integer.MIN_VALUE);
         }
     }
+
+
     @Override
     public boolean equalsTypes(Message other){
         return other instanceof MessageInt;
