@@ -1,8 +1,8 @@
 package com.acme.edu;
 
-import com.acme.edu.Message.*;
-import com.acme.edu.Saver.ConsoleSaver;
-import com.acme.edu.Saver.Saver;
+import com.acme.edu.message.*;
+import com.acme.edu.saver.ConsoleSaver;
+import com.acme.edu.saver.Saver;
 
 public class SumTypeLogger {
 
@@ -11,41 +11,45 @@ public class SumTypeLogger {
 
 
     public static void log(int message) {
-        Message m = new MessageInt( message );
+        Message m = new MessageInt(message);
         loggerController.setCurrentMessage(m);
 
     }
 
     public static void log(byte message) {
-        Message m = new MessageByte( message);
+        Message m = new MessageByte(message);
         loggerController.setCurrentMessage(m);
     }
 
-    public static void log(boolean message){
+    public static void log(boolean message) {
         Message m = new MessageBoolean(message);
         loggerController.setCurrentMessage(m);
     }
-    public static void log(String message){
+
+    public static void log(String message) {
         Message m = new MessageString(message);
         loggerController.setCurrentMessage(m);
 
     }
-    public static void log(char message){
+
+    public static void log(char message) {
         Message m = new MessageChar(message);
         loggerController.setCurrentMessage(m);
 
     }
-    public static void log(Object message){
+
+    public static void log(Object message) {
         Message m = new MessageObject(message);
-       loggerController.setCurrentMessage(m);
+        loggerController.setCurrentMessage(m);
     }
 
-    public  static void log(int... messages ){
-       Message m = new MessageVarargsInt(messages);
-       loggerController.setCurrentMessage(m);
+    public static void log(int... messages) {
+        Message m = new MessageVarargsInt(messages);
+        loggerController.setCurrentMessage(m);
 
     }
-    public static void close(){
+
+    public static void close() {
         loggerController.close();
     }
 
