@@ -1,6 +1,6 @@
-package com.acme.edu.Message;
+package com.acme.edu.message;
 
-import com.acme.edu.Saver.Saver;
+import com.acme.edu.saver.Saver;
 
 public class MessageChar extends Message {
     private static final String PREFIX = "char: ";

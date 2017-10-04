@@ -1,10 +1,10 @@
-package com.acme.edu.Message;
+package com.acme.edu.message;
 
-import com.acme.edu.Saver.Saver;
+import com.acme.edu.saver.Saver;
 
 public class MessageObject extends Message {
 
-    private static final String PREFIX="reference: ";
+    private static final String PREFIX = "reference: ";
     private Object message;
 
     public MessageObject(Object message) {
@@ -23,7 +23,7 @@ public class MessageObject extends Message {
 
     @Override
     public boolean equalsTypes(Message other) {
-        return other instanceof  MessageObject;
+        return other instanceof MessageObject;
     }
 
     @Override
