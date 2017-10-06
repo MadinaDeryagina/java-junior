@@ -15,10 +15,6 @@ public class MessageBoolean extends Message {
         return prefix + message;
     }
 
-    @Override
-    protected void processPrevAndCurrent(Message prevMessage, Saver saver) {
-        saver.save(prevMessage.formateForSave());
-    }
 
     @Override
     public boolean equalsTypes(Message other) {

@@ -7,7 +7,8 @@ public class MessageObject extends Message {
     private static final String PREFIX = "reference: ";
     private Object message;
 
-    public MessageObject(Object message) {
+    public MessageObject(Object message) throws MessageException {
+        if( message == null) throw new MessageException("Null message");
         this.message = message;
     }
 
@@ -16,10 +17,7 @@ public class MessageObject extends Message {
         return PREFIX + message + LINE_SEPARATOR;
     }
 
-    @Override
-    protected void processPrevAndCurrent(Message prevMessage, Saver saver) {
-        saver.save(prevMessage.formateForSave());
-    }
+
 
     @Override
     public boolean equalsTypes(Message other) {

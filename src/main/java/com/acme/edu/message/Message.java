@@ -1,6 +1,7 @@
 package com.acme.edu.message;
 
 import com.acme.edu.saver.Saver;
+import com.acme.edu.saver.SaverException;
 
 public abstract class Message {
 
@@ -14,14 +15,27 @@ public abstract class Message {
             return;
         }
         if (!this.equalsTypes(prevMessage)) {
-            saver.save(prevMessage.formateForSave());
+            try{
+                saver.save(prevMessage.formateForSave());
+
+            } catch (SaverException e) {
+                new IllegalArgumentException("There is nowhere to save data");
+            }
 
         } else {
             this.processPrevAndCurrent(prevMessage, saver);
         }
     }
 
-    abstract protected void processPrevAndCurrent(Message prevMessage, Saver saver);
+    protected void processPrevAndCurrent(Message prevMessage, Saver saver){
+        try{
+            saver.save(prevMessage.formateForSave());
+
+        } catch (SaverException e) {
+            new IllegalArgumentException("There is nowhere to save data");
+        }
+
+    }
 
     public abstract boolean equalsTypes(Message other);
 

@@ -26,6 +26,9 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
 
     @Test
     public void shouldLogIntegersArray() throws IOException {
+        try{
+            SumTypeLogger.log((int[])null);
+        }catch (IllegalArgumentException e){}
         //region when
         SumTypeLogger.log(new int[] {-1, 0, 1});
         SumTypeLogger.close();

@@ -8,7 +8,9 @@ public class MessageString extends Message {
     private String message;
 
 
-    public MessageString(String message) {
+    public MessageString(String message) throws MessageException {
+
+        if (message == null) throw new MessageException("Null message");
         this.message = message;
     }
 
@@ -37,7 +39,7 @@ public class MessageString extends Message {
     @Override
     protected void processPrevAndCurrent(Message prevMessage, Saver saver) {
         if (!(this.equalsString((MessageString) prevMessage))) {
-            saver.save(prevMessage.formateForSave());
+            super.processPrevAndCurrent(prevMessage,saver);
         } else {
             int prevCounter = ((MessageString) prevMessage).getCounter();
             this.setCountRepeated(prevCounter);

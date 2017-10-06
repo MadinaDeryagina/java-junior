@@ -47,7 +47,7 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
+    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() throws IOException{
         //region when
         SumTypeLogger.log("str 1");
         SumTypeLogger.log((int) 10);
@@ -72,7 +72,7 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
+    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() throws  IOException{
         //region when
         SumTypeLogger.log("str 1");
         SumTypeLogger.log((byte) 10);

@@ -6,9 +6,9 @@ public class MessageVarargsInt extends Message {
     private static final String PREFIX = "primitives array:";
     private int[] messages;
 
-    public MessageVarargsInt(int... messages) {
-
-        this.messages = messages;
+    public MessageVarargsInt(int... messages) throws  MessageException{
+        if( messages == null ) throw new MessageException("Null message");
+         this.messages = messages;
 
     }
 
@@ -24,10 +24,6 @@ public class MessageVarargsInt extends Message {
         return sb.toString();
     }
 
-    @Override
-    protected void processPrevAndCurrent(Message prevMessage, Saver saver) {
-        saver.save(prevMessage.formateForSave());
-    }
 
 
     @Override

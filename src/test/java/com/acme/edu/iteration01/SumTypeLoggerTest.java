@@ -76,6 +76,9 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
 
     @Test
     public void shouldLogString() throws IOException {
+        try{
+            SumTypeLogger.log((String)null);
+        }catch (IllegalArgumentException e){}
         //region when
         SumTypeLogger.log("test string 1");
         SumTypeLogger.log("other str");
@@ -105,6 +108,9 @@ public class SumTypeLoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     @Test
     public void shouldLogReference() throws IOException {
+        try{
+            SumTypeLogger.log((Object)null);
+        }catch (IllegalArgumentException e){}
         //region when
         SumTypeLogger.log(new Object());
         SumTypeLogger.close();
